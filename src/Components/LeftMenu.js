@@ -27,7 +27,18 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import DnsIcon from '@material-ui/icons/Dns';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Config from '../config.json';
+import Icon from '@material-ui/core/Icon';
 const drawerWidth = 240;
+
+const leftMenuComp = {
+    "Products"   : Products,
+    "Cart"       : Cart,
+    "Orders"     : Orders,
+    "Categories" : Categories,
+    "Profile"    : Profile,
+
+};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -92,7 +103,7 @@ export default function LeftMenu() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [screen, setScreen] = React.useState('Products');
-
+   
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -149,28 +160,20 @@ export default function LeftMenu() {
                     </IconButton>
                 </div>
                 <List>
-                    {['Products', 'Orders', 'Categories', 'Cart', 'Profile'].map((text, index) => (
+                    {Config.LeftMenuLabels.map((text, index) => (
                         <div key={index}>
                             <ListItem
                                 onClick={() => {
-                                    setScreen(text)
+                                    setScreen(text.label)
                                 }}
-                                button key={text}>
+                                button key={text.label}>
                                 <ListItemIcon>
                                     {
-                                        text === 'Products' ?
-                                            <ShoppingBasketIcon /> :
-                                            text === 'Orders' ?
-                                                <AssignmentTurnedInIcon /> :
-                                                text === 'Categories' ?
-                                                    <DnsIcon /> :
-                                                    text === 'Cart' ?
-                                                        <AddShoppingCartIcon /> :
-                                                        text === 'Profile' ?
-                                                            <AccountCircleIcon /> : ''
+
+                                <Icon className={text.icon} color="primary" />
                                     }
                                 </ListItemIcon>
-                                <ListItemText primary={text} />
+                                <ListItemText primary={text.label} />
                             </ListItem>
                             <Divider />
                         </div>
@@ -184,20 +187,15 @@ export default function LeftMenu() {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                {
-                    screen === 'Products' ?
-                        <Products /> :
-                        screen === 'Orders' ?
-                            <Orders /> :
-                            screen === 'Categories' ?
-                                <Categories /> :
-                                screen === 'Cart' ?
-                                    <Cart /> :
-                                    screen === 'Profile' ?
-                                        <Profile /> : ''
-                }
+               {rederComponent(screen)}
 
             </main>
         </div>
     );
+}
+
+function rederComponent(screen)
+{
+    const SpecificStory = leftMenuComp[screen];
+    return <SpecificStory />;
 }

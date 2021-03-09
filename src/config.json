@@ -1,0 +1,24 @@
+{
+    "LeftMenuLabels": [
+        {
+            "label" : "Products",
+            "icon" : "fa fa-shopping-cart"
+        },
+        {
+            "label" : "Orders",
+            "icon" : "calendar_view_day"
+        },
+        {
+            "label" : "Categories",
+            "icon" : "calendar_view_day"
+        },
+        {
+            "label" : "Cart",
+            "icon" : "calendar_view_day"
+        },
+        {
+            "label" : "Profile",
+            "icon" : "calendar_view_day"
+        }
+    ]
+}
